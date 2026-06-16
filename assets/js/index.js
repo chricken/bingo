@@ -8,10 +8,14 @@ import data from './data.js';
 // FUNKTIONEN
 const domMapping = () => {
     settings.elements.main = dom.$('main');
+    settings.elements.btnReload = dom.$('#btnReload');
 }
 
-const appendEventlisteners = () => {
-
+const appendEventListeners = () => {
+    settings.elements.btnReload.addEventListener('click', () => {
+        fillData();
+        render.table();
+    })
 }
 
 const fillData = () => {
@@ -25,6 +29,7 @@ const fillData = () => {
     })
 
     // Array füllen
+    settings.overview = [];
     for (let y = 0; y < settings.height; y++) {
         // Eintrag in Übersicht
         let overviewRow = [];
@@ -34,18 +39,31 @@ const fillData = () => {
             let overviewObj = {
                 x, y,
                 selected: false,
-                text:tags.pop()
+                text: tags.pop()
             }
             overviewRow.push(overviewObj);
         }
     }
+    data.saveData();
+}
+
+
+const loadData = () => {
+    const loaded = localStorage.getItem('overview');
+    if (loaded) {
+        settings.overview = JSON.parse(loaded);
+    } else {
+        fillData();
+    }
     console.log(settings.overview);
+
 }
 
 const init = () => {
     domMapping();
-    appendEventlisteners();
-    fillData();
+    appendEventListeners();
+    loadData();
+    // fillData();
     render.table();
 }
 

@@ -10,6 +10,8 @@ const render = {
         dataset.selected = !dataset.selected;
         render.table();
         render.checkIfWon(dataset.x, dataset.y);
+
+        data.saveData();
     },
     checkIfWon(x, y) {
         // vertikal
