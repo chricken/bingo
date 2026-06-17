@@ -14,35 +14,64 @@ const render = {
         data.saveData();
     },
     checkIfWon(x, y) {
-        // vertikal
-        // console.log( settings.overview.flat()); //.filter()
+        console.log('overview', settings.overview);
+
         let hasWonVertical = settings.overview
             .flat()
-            .filter(el => el.x == x)
+            .filter(el => el.x === x)
             .every(el => el.selected);
 
         let hasWonHorizontal = settings.overview
             .flat()
-            .filter(el => el.y == y)
+            .filter(el => el.y === y)
             .every(el => el.selected);
 
-        // console.log('H', hasWonHorizontal);
-        // console.log('V', hasWonVertical);
+
+        let hasWonDiag1 = [0, 1, 2, 3].map((v, i) => {
+            return settings.overview
+                .flat()
+                .filter(el => el.y === i)
+                .filter(el => el.x === i)[0]
+                .selected
+        }).every(el => el === true);
+
+        let hasWonDiag2 = [0, 1, 2, 3].map((v, i) => {
+            return settings.overview
+                .flat()
+                .filter(el => el.y === i)
+                .filter(el => el.x === 3 - i)[0]
+                .selected
+        }).every(el => el === true);
+
+        console.log(hasWonDiag1, hasWonDiag2);
 
         if (hasWonHorizontal) {
             settings.overview
                 .flat()
-                .filter(el => el.y == y)
+                .filter(el => el.y === y)
                 .forEach(el => el.domEl.classList.add('winner'));
         }
         if (hasWonVertical) {
             settings.overview
                 .flat()
-                .filter(el => el.x == x)
+                .filter(el => el.x === x)
                 .forEach(el => el.domEl.classList.add('winner'));
         }
+        if (hasWonDiag1) {
+            settings.overview[0][0].domEl.classList.add('winner');
+            settings.overview[1][1].domEl.classList.add('winner');
+            settings.overview[2][2].domEl.classList.add('winner');
+            settings.overview[3][3].domEl.classList.add('winner');
+        }
+        if (hasWonDiag2) {
+            settings.overview[0][3].domEl.classList.add('winner');
+            settings.overview[1][2].domEl.classList.add('winner');
+            settings.overview[2][1].domEl.classList.add('winner');
+            settings.overview[3][0].domEl.classList.add('winner');
+        }
     },
-    table() {
+    table
+        () {
         // Leeren
         settings.elements.main.innerHTML = '';
 
