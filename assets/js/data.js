@@ -84,7 +84,6 @@ const data = {
         "Beliebige Schleimerei",
         "Mocking einer anderen Stadt",
         "Auch ihr da hinten",
-        "Applaus für ...",
         "AAAAAAAAAAAAAAAAAA!!!",
         "Tschüß (Bye, Ciao, ...)",
         "Bis zum nächsten Mal"

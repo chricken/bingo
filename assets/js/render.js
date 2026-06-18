@@ -43,7 +43,7 @@ const render = {
                 .selected
         }).every(el => el === true);
 
-        console.log(hasWonDiag1, hasWonDiag2);
+        // console.log(hasWonDiag1, hasWonDiag2);
 
         if (hasWonHorizontal) {
             settings.overview
